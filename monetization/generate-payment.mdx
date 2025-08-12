@@ -1,0 +1,68 @@
+---
+title: "Generate payment link"
+description: "Create payment links to monetize your products via Mage checkout module."
+icon: "link-simple"
+---
+
+For developers building **consumer-facing products**, there’s often a need to:
+
+- **Collect payments** from users.
+- **Credit their accounts** so their agents can make purchases on their behalf.
+
+For example, if you’re building a personal shopping assistant, your user might top up credits, and the agent will use those credits to complete purchases.
+
+Mage makes this process simple. You can:
+
+1. **Integrate a Stripe webhook** to handle payments externally.
+2. **Collect money directly** via Mage’s built-in checkout module.
+
+---
+
+## **Monetization Modes**
+
+Mage supports three ways to monetize your agents and services:
+
+1. **Credit-based**
+    - Users purchase credits, which can be spent by agents for transactions.
+    - Ideal for usage-based services.
+2. **Time-based (Subscription)**
+    - Users pay for a set duration of access (e.g., monthly, yearly).
+    - Perfect for recurring service models.
+3. **One-time Payment**
+    - Single payment for a specific service or product.
+    - Best for one-off transactions.
+
+---
+
+## **Creating a Payment Link**
+
+1. Go to **Checkout Module** in your Mage dashboard.
+2. Click **Create Product**.
+3. Fill in:
+    - **Product Logo** (optional)
+    - **Product Name** and **Description**
+    - **Payment Type** (Credit-based, Time-based, or One-time)
+4. Once created, a **Payment Link** will be generated.
+5. Add this payment link directly to your app or checkout page — users can pay instantly, and credits or access time will be applied to their account.
+
+<Frame>
+<img src="/images/checkout-module.png" alt="" />
+</Frame>
+<br></br>
+<Frame>
+<img src="/images/payment-link.png" alt="" />
+</Frame>
+
+---
+
+## **Example Flow**
+
+1. User visits your checkout page.
+2. User clicks the Mage payment link.
+3. Mage processes the payment and updates the user’s credit balance or subscription status instantly.
+4. The agent can now use those credits to make purchases.
+
+
+<Note>
+This feature will be available in the production environment. In sandbox mode, you can test the flow without processing real payments.
+</Note>

@@ -1,0 +1,117 @@
+---
+title: "Layer 2: Policy and Compliance Engine"
+description: "Smart Rules, Safe and Compliant Money Movement."
+---
+
+
+In human-driven finance, access and controls rely on static roles, shared logins, and hardcoded rules. But in an agentic world, we need dynamic, identity-aware policies that adapt per agent, per action, in real time, while also meeting external regulatory requirements like AML, sanctions screening, and transaction monitoring by design.
+
+**Traditional systems ask:** 
+> “Is this user allowed to do this?”
+
+**Agentic systems must ask:** 
+> “Is this specific agent, acting on behalf of this user, allowed to do this action, right now?”
+
+## **Core Components of Layer 2: Policy + Compliance**
+
+Mage’s compliance engine turns agent behavior into controllable, auditable, and compliant operations using real-time rules, checks and policy enforcement.
+
+| **Component** | **Description** |
+| --- | --- |
+| **Programmatic Financial Account** | Gives agents access to funds using scoped, temporary payment methods (e.g. tokenized cards or wallets). Access is controlled by policy and limited to specific tasks. |
+| **Policy Engine** | Before any action occurs, Mage's OPA-based policy engine evaluates agent permissions using ABAC attributes like agent identity, user status, and contextual metadata. If approved via policy evaluation, execution continues through the authorization flow. |
+| **Prompt Screening** | We provide a fine-tuned AI model trained on prompt injections and transaction behavior to detect risks in real time. Developers can also define custom rules in natural language to tailor screening logic for their specific use case. |
+| **Agent Spend Controls** | Enforces how much agents can spend, using rules like per-user, per-agent, or per-day limits, and validates whether the destination is part of trusted entities. Ensures agents stay within safe financial boundaries. |
+| **Human-in-the-Loop Gateway** | Implements async approval workflows that allow agents to request user authorization before accessing funds. This leverages webhook callbacks and can be exposed via REST APIs or embedded UI components, controlled by developer configuration or user preference settings. |
+| **Compliance and AML Checks** | Performs real-time checks for AML, OFAC, sanctions, fraud, and geographic risk. Ensures all agent activity complies with regulatory requirements. |
+
+## **How It All Works Together**
+
+Mage's Policy and Compliance Engine doesn’t just run isolated checks, it orchestrates every agent action through a layered system of safeguards, logic, and auditability. Here’s how the system operates end to end:
+
+<Steps>
+<Step title="An agent initiates an action">
+
+An AI agent (e.g. checkout-bot-us-174) is activated to perform a task, such as making a $15 purchase on behalf of a user.
+
+</Step>
+
+<Step title="Prompt Screening uses AI and custom logic to detect risky behavior">
+
+Before an agent takes action, Mage evaluates the prompt or instruction that triggered it, especially important for LLM-based agents.
+
+A fine-tuned model checks the prompt for risks like:
+
+- Prompt injection or jailbreak attempts
+- Malicious, misleading, or manipulated input
+- Violations of agent role, intent, or policy constraints
+- Fraud patterns or impersonation attempts
+
+In addition, developers can add custom business logic to further refine what’s allowed.
+
+**If anything looks suspicious, the system can block, delay, or escalate the action before it proceeds.**
+</Step>
+
+<Step title="Policy Engine makes the first decision">
+
+Once prompt screening passes, Mage’s policy engine determines whether the agent is allowed to perform the task using contextual factors like agent identity, user account status, time of day, transaction amount, and risk level.
+
+**If approved, execution moves forward.**
+</Step>
+
+<Step title="Spend Controls apply financial boundaries">
+
+Mage then checks whether the agent is within its defined spending limits (e.g., \$50 per user per day or \$200 per organization per week) and whether the destination is part of the registered trusted entities defined by the agent developer or enterprise.
+
+**If the above conditions do not meet, the request is blocked.**
+</Step>
+
+<Step title="A scoped financial instrument is issued">
+
+If the agent passes all checks so far, Mage provisions a scoped payment method such as a tokenized virtual card or internal wallet with access to exactly $15.
+
+**This method is strictly linked to the agent, user, and transaction.**
+</Step>
+
+<Step title="Human-in-the-Loop (Real-time user approval)">
+
+Before the agent can use the funds, Mage can pause the flow and request explicit user confirmation.
+
+This control is configurable and can be:
+
+- Always on
+- Triggered based on policy, such as transaction amount or agent risk level
+- Optional for users to turn on in their settings
+
+When triggered, the user sees a prompt like:
+
+“Approve $15 payment by checkout bot for Order 1234?”
+
+**The agent waits until the user approves or denies the request, making human oversight part of the workflow.**
+</Step>
+
+<Step title="Compliance and AML checks are enforced">
+
+Before funds move, Mage performs regulatory checks through partners such as Plaid. These include:
+
+- AML screening
+- Sanctions and OFAC list checks
+- Velocity and behavioral rules
+- Jurisdiction filters
+
+**This ensures every transaction meets external compliance requirements.**
+</Step>
+
+<Step title="Transaction executes and is fully logged">
+
+After approval, Mage processes the transaction and logs every detail including policy evaluations, risk decisions, user approvals, and identity lineage.
+
+**This creates a complete audit trail for compliance and debugging.**
+</Step>
+</Steps>
+
+## **Why This Matters**
+
+This layered approach turns AI agents into safe, policy-bound compliant actors who can operate autonomously but only within clearly defined rules and regulatory safeguards. It brings together speed, control, and accountability in a way that scales with automation and satisfies both engineering and compliance teams.
+
+

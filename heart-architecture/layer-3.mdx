@@ -1,0 +1,68 @@
+---
+title: "Layer 3: API-Based Payment Orchestration Network"
+description: "One API. Any Rail. Fully programmable money movement."
+---
+
+
+While **Layer 1** establishes who can act, and **Layer 2** defines under what conditions, **Layer 3** handles how the money actually moves across systems, rails, and counterparties.
+
+**This is the execution layer. It's where agent intent becomes real-world financial action.**
+
+### **Core Components**
+
+| **Component** | **Description** |
+| --- | --- |
+| **Counterparty Path Detection** | Determines where and how funds can be delivered to the recipient. It maps the destination based on their account type (bank, wallet, on-chain), region, currency, and trust level. |
+| **Single API Interface** | A unified interface that lets agents trigger checkouts, transfers, and payouts, abstracting all underlying rails, formatting, and integration complexity. |
+| **Multi-Rail Router** | Determines which payment rail to use (ACH, SEPA, card, USDC, etc.) to fulfill the transaction based on the agent's intent, available source of funds, policy, and transaction context. |
+
+### **Types of transfers**
+
+Mage uses a regulated, licensed infrastructure partner to access local and global payment rails. These rails are unified behind a single API interface that abstracts rail-specific logic, formatting, and settlement into a consistent orchestration layer.
+
+| **Component** | **Description** |
+| --- | --- |
+| **Cross-Border Transfers** | Lets agents initiate international transfers using fiat-to-fiat, stablecoin-to-stablecoin, or hybrid flows (e.g. fiat to USDC). Mage supports networks like ACH and SEPA, handling FX, screening, and disbursement. |
+| **Domestic Transfers** | Supports region-specific bank transfers (ACH in the US, SEPA in the EU, UPI in India). Mage unifies the flow, formatting, and settlement status through a single API for local money movement. |
+| **E-commerce Checkouts** | Agents complete purchases using tokenized virtual cards linked to the user’s account. Mage uses a proprietary headless browser to handle complex checkout flows across merchant platforms. |
+| **Agent-to-Agent Transfers** | Allows direct transfers between two agents using stablecoins like USDC, either within a single developer org or across trusted partner ecosystems. Executed instantly using Mage’s ledger and crypto bridge logic. |
+
+---
+
+## Real world examples and Backend Operations
+
+<Card title="Domestic Transfer (ACH)" icon="building-columns">
+  Agent is told to pay **$100** to a U.S. bank account.  
+  <br/><br/>
+  **Mage Backend Execution:**  
+  - Agent is granted scoped access to **$100** from the user’s balance.  
+  - Policy engine approves the request based on context, limits, and risk posture.  
+  - A tokenized payment amount is provisioned.  
+  - Human-in-the-Loop approval triggered if enabled.  
+  - Mage routes the transfer via ACH.  
+  - Transaction is logged and auditable in the ledger.
+</Card>
+
+<Card title="E-Commerce Checkout (Tokenized Card)" icon="credit-card">
+  Agent completes a **$25** checkout on a merchant site.  
+  <br/><br/>
+  **Mage Backend Execution:**  
+  - Agent receives **$25** scoped access from the developer’s balance.  
+  - Mage issues a virtual card with a fixed spending cap.  
+  - Checkout is handled using Mage’s proprietary headless browser.  
+  - Card is single-use and automatically revoked post-transaction.  
+  - Payment is settled; the entire flow is logged for traceability.
+</Card>
+
+<Card title="Cross-Border or Agent-to-Agent (USDC)" icon="globe">
+  Agent sends **$500 USD** to a partner agent or vendor.  
+  <br/><br/>
+  **Mage Backend Execution:**  
+  - Scoped access granted to **$500 USD** from the org’s financial account.  
+  - Counterparty path detection identifies delivery route and trust level.  
+  - Policy engine and optional Human-in-the-Loop approval applied.  
+  - Mage sends funds via direct crypto transfer or off-ramp.  
+  - Balances are updated; event is immutably recorded in the ledger.
+</Card>
+
+

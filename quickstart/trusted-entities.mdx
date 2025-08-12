@@ -1,0 +1,99 @@
+---
+title: 'Trusted Entities'
+description: 'Define and manage pre-approved recipients your agents can interact with.'
+icon: 'shield-check'
+---
+
+The **Trusted Entities** section in Mage allows you to define and manage all the **pre-approved recipients** your agents are allowed to interact with. This acts as a whitelist, ensuring that your agents can only send payments, share data, or perform actions with known and authorized parties.
+
+Trusted entities can be:
+
+1. **E-commerce Domains** – Approved websites or platforms where agents are allowed to complete transactions.
+2. **Bank Accounts** – Pre-approved recipient accounts for secure fund transfers.
+3. **Mage IDs** – Verified Mage user or agent IDs for internal transfers or agent-to-agent transactions.
+
+<Frame>
+<img src="/images/trusted-entities.png" alt="" />
+</Frame>
+
+---
+
+<Steps>
+<Step title="1. Adding E-commerce Domains">
+
+- Click **Add Trusted Domain**.
+- Enter the domain name (e.g., `suppliername.com`).
+- Once added, your agents will be allowed to initiate checkouts or payments on that domain.
+- Use case: Restricting procurement agents to only buy from verified suppliers’ websites.
+    
+<Frame>
+<img src="/images/add-domain.png" alt="" />
+</Frame>
+
+---
+
+</Step>
+
+<Step title="2. Adding Bank Accounts">
+
+You can add bank accounts from multiple regions (US, EU, India) with the necessary country-specific details.
+
+**Fields:**
+
+- **Country/Region** – Choose the account’s location (affects required fields).
+- **Bank Name** – Name of the receiving bank.
+- **Account Number** – Recipient’s account number.
+- **Routing Number / IBAN / IFSC** – Country-specific routing details.
+- **Recipient Name** – Name of the account holder.
+
+**Security:**
+
+- All data is encrypted and stored securely.
+- Accounts can be deactivated or edited later.
+
+**Use case:**
+
+If you have recurring payouts to a vendor, you add their account here so agents can send funds only to this approved account.
+
+<Frame>
+<img src="/images/add-bankacc.png" alt="" />
+</Frame>
+
+---
+
+</Step>
+
+<Step title="3. Adding Mage IDs">
+
+Mage IDs are unique identifiers for Mage accounts—these can belong to:
+
+- **Users** – Individual human accounts.
+- **Agents** – Automated systems or AI agents in Mage.
+
+**Fields:**
+
+- **Mage ID** – UUID or prefixed ID (e.g., `mage_agent_xyz`).
+- **Type** – User or Agent.
+- **Status** – Active or Inactive.
+
+**Use case:**
+
+Allowing internal transfers between your agents, or sending payments to trusted customers Mage accounts.
+
+<Frame>
+<img src="/images/add-mageid.png" alt="" />
+</Frame>
+
+---
+
+</Step>
+</Steps>
+
+### Where Trusted Entities Are Used
+
+Trusted Entities are a **key part of your Spend Rules** when registering agents:
+
+- If **“Only Trusted Payees Allowed”** is enabled in an agent’s spend rules, the agent can only send money or perform actions involving entities on this list.
+- This provides strong fraud prevention and operational control.
+- It’s especially important in production mode, where real funds are being moved.
+

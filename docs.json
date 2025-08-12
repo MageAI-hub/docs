@@ -1,54 +1,71 @@
 {
   "$schema": "https://mintlify.com/docs.json",
   "theme": "mint",
-  "name": "Mint Starter Kit",
+  "name": "Mage Docs",
   "colors": {
-    "primary": "#16A34A",
-    "light": "#07C983",
-    "dark": "#15803D"
+    "primary": "#FF7A00",
+    "light": "#FF7A00",
+    "dark": "#FF7A00"
   },
-  "favicon": "/favicon.svg",
+  "favicon": "/favicon.ico",
   "navigation": {
     "tabs": [
       {
-        "tab": "Guides",
+        "tab": "Platform",
         "groups": [
           {
-            "group": "Getting started",
+            "group": "Introduction",
             "pages": [
               "index",
-              "quickstart",
-              "development"
+              "why-agent-native",
+              {
+                "group": "HEART: Architecture",
+                "pages": [
+                  "heart-architecture",
+                  "heart-architecture/layer-1",
+                  "heart-architecture/layer-2",
+                  "heart-architecture/layer-3",
+                  "heart-architecture/layer-4"
+                ]
+              },
+              "forwho",
+              "glossary"
             ]
           },
           {
-            "group": "Customization",
+            "group": "Quickstart",
             "pages": [
-              "essentials/settings",
-              "essentials/navigation"
+              "quickstart/setup",
+              "quickstart/register-agents",
+              "quickstart/trusted-entities",
+              "quickstart/mcp-server",
+              "quickstart/payment-ready",
+              "quickstart/payment-requests"
             ]
           },
           {
-            "group": "Writing content",
+            "group": "Integrations",
             "pages": [
-              "essentials/markdown",
-              "essentials/code",
-              "essentials/images",
-              "essentials/reusable-snippets"
+              "integrations/erp-systems",
+              "integrations/agent-building"
             ]
           },
           {
-            "group": "AI tools",
+            "group": "Monetization for Agent Developers",
             "pages": [
-              "ai-tools/cursor",
-              "ai-tools/claude-code",
-              "ai-tools/windsurf"
+              "monetization/generate-payment"
+            ]
+          },
+          {
+            "group": "Networks and Fees",
+            "pages": [
+              "network-fees/supported-networks"
             ]
           }
         ]
       },
       {
-        "tab": "API reference",
+        "tab": "API Docs",
         "groups": [
           {
             "group": "API documentation",
@@ -66,24 +83,23 @@
             ]
           }
         ]
+      },
+      {
+        "tab": "Cookbooks",
+        "groups":[]
       }
     ],
     "global": {
       "anchors": [
         {
-          "anchor": "Documentation",
-          "href": "https://mintlify.com/docs",
-          "icon": "book-open-cover"
+          "anchor": "Dashboard",
+          "href": "https://www.magebank.ai/dashboard",
+          "icon": "table-columns"
         },
         {
-          "anchor": "Community",
-          "href": "https://mintlify.com/community",
-          "icon": "slack"
-        },
-        {
-          "anchor": "Blog",
-          "href": "https://mintlify.com/blog",
-          "icon": "newspaper"
+          "anchor": "Playground",
+          "href": "https://www.magebank.ai/playground",
+          "icon": "flask-gear"
         }
       ]
     }
@@ -95,14 +111,26 @@
   "navbar": {
     "links": [
       {
-        "label": "Support",
+        "label": "Usecase",
+        "href": "mailto:hi@mintlify.com"
+      },
+      {
+        "label": "Why?",
+        "href": "mailto:hi@mintlify.com"
+      },
+      {
+        "label": "Product",
+        "href": "mailto:hi@mintlify.com"
+      },  
+      {
+        "label": "Security",
         "href": "mailto:hi@mintlify.com"
       }
     ],
     "primary": {
       "type": "button",
-      "label": "Dashboard",
-      "href": "https://dashboard.mintlify.com"
+      "label": "Sign up",
+      "href": "https://www.magebank.ai/dashboard/register"
     }
   },
   "contextual": {

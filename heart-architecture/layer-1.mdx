@@ -1,0 +1,82 @@
+---
+title: "Layer 1: Identity and Authorization Framework"
+description: "How agents, entities, and permissions are modeled and enforced."
+---
+
+
+We’re entering an era where AI agents—not humans—will be the dominant actors in financial systems. These agents will handle everything from completing checkouts to moving funds across accounts, issuing refunds, and even executing high-value B2B payments.
+
+> **Problem:** Legacy identity systems, built for humans with passports and SSNs, are not designed for the scale and complexity of this new reality.
+
+
+**Traditional systems ask:**  
+> “Who are you?”
+
+**Agentic systems must ask:**  
+> “Who is acting, on whose behalf, and with what permission?”
+
+<Tip>
+**Insight:** Industry forecasts estimate **80× more agents than human users** in financial ecosystems within the decade.  **Mage is built for this future.**
+</Tip>
+
+---
+
+### **Core Components of Layer 1**
+
+Mage’s identity framework is composed of five foundational components that work together to enable secure, accountable, and policy-controlled agent behavior.
+
+| Component | Purpose |
+| --- | --- |
+| **KYA (Know Your Agent)** | Verifies agents are linked to real users, scoped to tasks, and fully auditable |
+| **Agent Registry** | Live registry of every agent’s origin, role, and expiration |
+| **Authentication Service** | Confirms agent identity at runtime using secure protocols |
+| **Session Manager** | Governs agent lifecycle based on policy |
+| **Programmatic Financial Account** | Grants agents scoped, policy-governed access to funds (via fiat, tokenized cards, etc.) to complete financial tasks |
+
+---
+
+### **How This All Works in Practice**
+
+| Capability | What It Does | Why It Matters |
+| --- | --- | --- |
+| **Digital Identity Issuance** | Agents are issued verifiable credentials using secure protocols like PKCE, SPIFFE/SVID, or DPoP tokens. | Prevents shared tokens; each agent session is uniquely identified and scoped. |
+| **Scoped Access** | Agent permissions are defined by task-specific policies and enforced at the API or proxy layer using systems like OPA or App Fabric. | Reduces risk by limiting access to exactly what is needed and nothing more. |
+| **Delegated Authority** | Agents act on behalf of users or enterprises using delegation models such as OAuth On-Behalf-Of (OBO). Delegation chains are fully logged. | Ensures clear traceability of actions and intent in human–agent workflows. |
+| **Full Audit Logging** | Every identity operation, token issuance, scope grant, and API request is centrally logged and timestamped. | Enables full visibility and audit trails essential for compliance, debugging, and incident response. |
+| **Just-In-Time Provisioning (JIT)** | Agents are dynamically registered into Mage's agent registry the moment they are needed, based on policy. | Eliminates the need for standing credentials, supporting scalability and automation. |
+| **Lifecycle Control** | Each agent identity is ephemeral (created, scoped, and programmatically expired). | Minimizes attack surface by ensuring agents exist only as long as necessary. |
+
+**TL;DR**
+
+Identities for agents are like **KYC for humans**, but built for smart AI agents.
+
+In traditional finance, we verify people using passports or ID documents. But AI agents are not people; they are code acting on behalf of a person or company.
+
+- Each agent is linked to a real person or company that created it.
+- It receives a persistent or temporary identity to complete a specific task, such as making a payment or handling a checkout.
+
+**Example Analogy:**
+
+Think of an intern given a one-day office badge. They are allowed into specific rooms, can perform a few tasks, and must leave at the end of the day. They are trusted, but only within clear limits. Our framework works the same way for AI agents.
+
+**Real Example:**
+
+**checkout-bot-us-174** is a persistent agent provisioned by AcmeCorp. Each time it runs a task, Mage issues a scoped child identity (e.g. checkout-bot-us-174::txn-9863) with limited permissions (like checkout.create, payment.tokenize) that expires after use.
+
+That agent can only perform the assigned task at that time, and nothing else.
+
+---
+
+### **Why It All Matters**
+
+Mage’s identity and authorization framework enables:
+
+- Trust in AI agents to move money and act on behalf of users.
+- End-to-end visibility and accountability.
+- Machine-speed automation with human-grade compliance.
+
+**In summary:**
+
+Our framework allows AI agents to move money, approve transactions, and interact with financial systems, all with human-level accountability and machine-level precision.
+
+

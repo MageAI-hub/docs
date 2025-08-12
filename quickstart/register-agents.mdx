@@ -1,0 +1,134 @@
+---
+title: 'Register your agents'
+description: 'Once funded, register AI agents so they can perform transactions on your behalf.'
+icon: 'user'
+---
+
+Once your Mage account is funded (with test funds in sandbox or real funds in production), you can start registering AI agents so they can perform transactions on your behalf.
+
+---
+
+<Steps>
+<Step title="Step 1: Go to the Agent Registry">
+
+- From the left-hand sidebar in the Mage dashboard, click **Agent Registry**.
+
+</Step>
+
+<Step title="Step 2: Create a New Agent">
+
+- Click **+ Add New Agent** in the top-right corner of the Agent Registry page.
+- This will open the **Create New Agent** form.
+
+<Frame>
+<img src="/images/create-agent.png" alt="" />
+</Frame>
+
+</Step>
+
+<Step title="Step 3: Complete KYA (Know Your Agent)">
+
+Every new agent must go through the KYA process.
+
+Here’s what you’ll fill in:
+
+### **A. Fill Basic Information**
+
+1. **Name** — Give your agent a clear, descriptive name (e.g., “Procurement Agent”).
+2. **Description** — Describe what this agent does (e.g., “Handles supplier payments for procurement workflows”).
+3. **Tags** (Max 5) — Add keywords to help you organize and filter agents later.
+
+<Frame>
+<img src="/images/complete-kya.png" alt="" />
+</Frame>
+
+Click **Next** to proceed.
+
+### **B. Set Spend Rules**
+
+Here you define how much your agent can spend and under what conditions.
+
+1. **Add Fund Allowance Limit** — The total amount of funds that can be added to the agent.
+2. **Transaction Limit** — The maximum amount per transaction.
+3. **Require Approval for All Transactions** — Choose “Yes” if every transaction needs human approval.
+4. **Only Trusted Payees Allowed** — Choose “Yes” if payments can only go to pre-approved recipients. You can register them [here](https://www.notion.so/Trusted-Entities-24d3855747df805485abc459ea3640c9?pvs=21).
+5. **Per Transaction Limit** — Set an additional cap for each transaction (can be the same or lower than Transaction Limit).
+6. **Max Allowance** — The absolute maximum amount this agent can control.
+7. **Session Time** — The duration (in minutes) an active session is valid for transactions.
+8. **Auto Approve Threshold** — Any transaction below this amount will be automatically approved.
+9. **Allowed Payment Methods** — Select the payment rails your agent can use (e.g., ACH Bank Transfer, Mage IDs, Checkout, etc.).
+
+<Frame>
+<img src="/images/spend-rules.png" alt="" />
+</Frame>
+
+Click **Next** when done.
+
+---
+
+### **C. Select Prompt Screening Policy**
+
+You’ll now define the agent’s security and prompt handling rules. You can:
+
+- Choose a **Predefined Policy**:
+    - **Mage Default Policy** — Maximum security, strictest controls.
+    - **Enterprise Policy** — Balanced security and operational flow.
+    - **Developer Policy** — Minimal friction, basic safety (best for testing).
+- **Or create a Custom Policy**:
+    - Name your policy.
+    - Describe it.
+    - Adjust security sliders for **Intent Validation**, **Language Processing**, and **Transaction Monitoring**.
+    - Add **Custom Categories** with expressions to block specific types of prompts.
+    
+
+<Frame>
+<img src="/images/select-policy.png" alt="" />
+</Frame>
+
+Once selected or created, click **Submit & Finish**.
+
+---
+
+</Step>
+
+<Step title="Step 4: Agent Registration Complete">
+
+Your agent will now appear in the **Agent Registry** with:
+
+- Assigned **Agent ID**
+- Spend rules applied
+- Tags
+- Approval rules
+- Session duration
+
+<Frame>
+<img src="/images/register-complete.png" alt="" />
+</Frame>
+
+---
+
+</Step>
+
+<Step title="Step 5: Monitor Child Agents">
+
+When the parent agent performs transactions, Mage automatically creates **Child Agents** for each transaction session.
+
+You can view:
+
+- Session IDs
+- Child Agent IDs
+- User on whose behalf the transaction was made
+- Status (e.g., CLOSED)
+- Scoped balance (funds allocated for that session)
+- Payment rails used
+- Transaction hash for record tracking
+
+<Frame>
+<img src="/images/child-agents.png" alt="" />
+</Frame>
+
+</Step>
+</Steps>
+<Check>
+This workflow ensures your agents are registered with clear permissions, strict guardrails, and proper security before they can access your funds.
+</Check>

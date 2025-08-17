@@ -1,0 +1,180 @@
+---
+title: "Create Trusted Party"
+api: "POST https://api.magebank.ai/trusted-parties/{type}"
+description: "Create a trusted party (domains, bank accounts, or mage IDs)"
+---
+
+## Authentication
+
+This endpoint requires API key authentication via the `Authorization` header.
+
+```
+Authorization: Bearer YOUR_API_KEY
+```
+
+## Path Parameters
+
+<ParamField path="type" type="string" required>
+  Type of trusted party to create. Must be one of: `domains`, `bank-accounts`, `mage-ids`
+</ParamField>
+
+## Request Body
+
+The request body varies based on the type parameter:
+
+<AccordionGroup>
+  <Accordion title="Domains (type=domains)">
+    <ParamField body="domain" type="string" required>
+      Valid domain URL (e.g., "https://marketplace.etsy.com")
+    </ParamField>
+    
+    <ParamField body="status" type="string">
+      Status of the domain. Options: `active`, `inactive`, `pending`. Default: `active`
+    </ParamField>
+  </Accordion>
+
+  <Accordion title="Bank Accounts (type=bank-accounts)">
+    <ParamField body="country" type="string" required>
+      Country code. Options: `US`, `EU`, `IN`
+    </ParamField>
+    
+    <ParamField body="bank_name" type="string" required>
+      Name of the bank
+    </ParamField>
+    
+    <ParamField body="recipient_name" type="string" required>
+      Name of the account holder
+    </ParamField>
+    
+    <ParamField body="status" type="string">
+      Status of the account. Options: `active`, `inactive`, `pending`. Default: `active`
+    </ParamField>
+    
+    **For US accounts (country=US):**
+    <ParamField body="routing_number" type="string" required>
+      US bank routing number
+    </ParamField>
+    
+    <ParamField body="account_number" type="string" required>
+      US bank account number
+    </ParamField>
+    
+    **For EU accounts (country=EU):**
+    <ParamField body="iban" type="string" required>
+      IBAN number
+    </ParamField>
+    
+    <ParamField body="bic_swift_code" type="string" required>
+      BIC/SWIFT code
+    </ParamField>
+    
+    **For Indian accounts (country=IN):**
+    <ParamField body="ifsc_code" type="string" required>
+      IFSC code
+    </ParamField>
+    
+    <ParamField body="account_number" type="string" required>
+      Indian bank account number
+    </ParamField>
+  </Accordion>
+
+  <Accordion title="Mage IDs (type=mage-ids)">
+    <ParamField body="mageid" type="string" required>
+      Mage ID (supports UUIDs and short IDs like `mage_agent_xxx`)
+    </ParamField>
+    
+    <ParamField body="type" type="string" required>
+      Type of Mage ID. Options: `user`, `agent`
+    </ParamField>
+    
+    <ParamField body="status" type="string">
+      Status of the Mage ID. Options: `active`, `inactive`, `pending`. Default: `active`
+    </ParamField>
+  </Accordion>
+</AccordionGroup>
+
+## Response
+
+Response format varies by type, but all include:
+
+<ResponseField name="id" type="string">
+  Trusted party ID in short format (e.g., `mage_trusted_domain_xxx`)
+</ResponseField>
+
+<ResponseField name="created_at" type="string">
+  Creation timestamp
+</ResponseField>
+
+<ResponseField name="updated_at" type="string">
+  Last update timestamp
+</ResponseField>
+
+## Example Requests
+
+<CodeGroup>
+```json Domain
+{
+  "domain": "https://marketplace.etsy.com",
+  "status": "active"
+}
+```
+
+```json US Bank Account
+{
+  "bank_name": "Chase Bank",
+  "country": "US",
+  "routing_number": "021000021",
+  "account_number": "123456789",
+  "recipient_name": "John Doe",
+  "status": "active"
+}
+```
+
+```json Mage ID
+{
+  "mageid": "mage_agent_x7BC9kDmL2QvFnRaZpY8N4",
+  "type": "agent",
+  "status": "active"
+}
+```
+</CodeGroup>
+
+## Example Responses
+
+<CodeGroup>
+```json Domain Response
+{
+  "id": "mage_trusted_domain_eC6ZezevNsqxvoKmQrUuoU",
+  "domain": "https://marketplace.etsy.com",
+  "last_used": null,
+  "status": "active",
+  "created_at": "2024-01-15T10:30:00Z",
+  "updated_at": "2024-01-15T10:30:00Z"
+}
+```
+
+```json Bank Account Response
+{
+  "id": "mage_trusted_bank_acc_k77NTwxp2Ym3JCmVsKtXQA",
+  "bank_name": "Chase Bank",
+  "country": "US",
+  "routing_number": "021000021",
+  "account_number": "123456789",
+  "recipient_name": "John Doe",
+  "status": "active",
+  "created_at": "2024-01-15T10:30:00Z",
+  "updated_at": "2024-01-15T10:30:00Z"
+}
+```
+
+```json Mage ID Response
+{
+  "id": "mage_trusted_id_x9YZabc123def456",
+  "mageid": "mage_agent_x7BC9kDmL2QvFnRaZpY8N4",
+  "type": "agent",
+  "status": "active",
+  "created_at": "2024-01-15T10:30:00Z",
+  "updated_at": "2024-01-15T10:30:00Z"
+}
+```
+</CodeGroup>

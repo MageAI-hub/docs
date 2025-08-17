@@ -1,0 +1,72 @@
+---
+title: "Get Parent Agent"
+api: "GET https://api.magebank.ai/p-agent/parent/{id}"
+description: "Retrieve a specific parent agent by ID"
+---
+
+## Authentication
+
+This endpoint requires API key authentication via the `Authorization` header.
+
+```
+Authorization: Bearer YOUR_API_KEY
+```
+
+## Path Parameters
+
+<ParamField path="id" type="string" required>
+  Parent agent ID (supports both short IDs like `mage_agent_xxx` and UUIDs)
+</ParamField>
+
+## Response
+
+<ResponseField name="id" type="string">
+  Parent agent ID in short format
+</ResponseField>
+
+<ResponseField name="name" type="string">
+  Agent name
+</ResponseField>
+
+<ResponseField name="description" type="string">
+  Agent description
+</ResponseField>
+
+<ResponseField name="tags" type="array">
+  Agent tags
+</ResponseField>
+
+<ResponseField name="spend_rules" type="object">
+  Configured spend rules
+</ResponseField>
+
+<ResponseField name="created_at" type="string">
+  Creation timestamp
+</ResponseField>
+
+<ResponseField name="updated_at" type="string">
+  Last update timestamp
+</ResponseField>
+
+## Example Response
+
+```json
+{
+  "id": "mage_agent_eC6ZezevNsqxvoKmQrUuoU",
+  "name": "Finance Operations Agent",
+  "description": "Agent for processing financial operations",
+  "tags": ["finance", "operations"],
+  "spend_rules": {
+    "per_tx_limit": 5000,
+    "daily_limit": 25000,
+    "max_allowance": 100000,
+    "session_time_mins": 30,
+    "trusted_payees": true,
+    "human_approval_required": false,
+    "auto_approve_threshold": 1000,
+    "allowed_rails": ["BANK_ACCOUNT:ACH", "MAGE_IDS"]
+  },
+  "created_at": "2024-01-15T10:30:00Z",
+  "updated_at": "2024-01-15T10:30:00Z"
+}
+```

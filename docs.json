@@ -74,7 +74,40 @@
             ]
           },
           {
-            "group": "Endpoint examples",
+            "group": "Policy Management",
+            "pages": [
+              "api-reference/endpoint/policy-create",
+              "api-reference/endpoint/policy-get",
+              "api-reference/endpoint/policy-list",
+              "api-reference/endpoint/policy-predefined"
+            ]
+          },
+          {
+            "group": "Parent Agents",
+            "pages": [
+              "api-reference/endpoint/parent-agent-create",
+              "api-reference/endpoint/parent-agent-list",
+              "api-reference/endpoint/parent-agent-get",
+              "api-reference/endpoint/parent-agent-child-agents"
+            ]
+          },
+          {
+            "group": "Trusted Parties",
+            "pages": [
+              "api-reference/endpoint/trusted-parties-create",
+              "api-reference/endpoint/trusted-parties-list"
+            ]
+          },
+          {
+            "group": "Payment Intents",
+            "pages": [
+              "api-reference/endpoint/payment-intent-create",
+              "api-reference/endpoint/payment-intent-approval",
+              "api-reference/endpoint/payment-intents-list"
+            ]
+          },
+          {
+            "group": "Example Endpoints",
             "pages": [
               "api-reference/endpoint/get",
               "api-reference/endpoint/create",

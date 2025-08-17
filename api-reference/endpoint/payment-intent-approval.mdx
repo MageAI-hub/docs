@@ -1,0 +1,163 @@
+---
+title: "Approve Payment Intent"
+api: "POST https://api.magebank.ai/payment/intent/approval"
+description: "Approve or reject a payment intent that requires manual approval"
+---
+
+## Authentication
+
+This endpoint requires API key authentication via the `Authorization` header.
+
+```
+Authorization: Bearer YOUR_API_KEY
+```
+
+## Request Body
+
+<ParamField body="payment_id" type="string" required>
+  Payment intent ID (supports both short IDs like `payment_xxx` and UUIDs)
+</ParamField>
+
+<ParamField body="action" type="string" required>
+  Action to take. Options: `approve`, `reject`
+</ParamField>
+
+<ParamField body="reason" type="string">
+  Optional reason for rejection (required when action is `reject`)
+</ParamField>
+
+## Response
+
+<ResponseField name="payments_id" type="string">
+  Payment intent ID in short format
+</ResponseField>
+
+<ResponseField name="status" type="string">
+  Updated payment status: `approved`, `rejected`, `error`
+</ResponseField>
+
+<ResponseField name="action" type="string">
+  Action that was performed
+</ResponseField>
+
+<ResponseField name="user_prompt" type="string">
+  Original user prompt
+</ResponseField>
+
+<ResponseField name="destination_type" type="string">
+  Destination type
+</ResponseField>
+
+<ResponseField name="destination_details" type="object">
+  Destination details with short IDs
+</ResponseField>
+
+<ResponseField name="amount" type="number">
+  Payment amount
+</ResponseField>
+
+<ResponseField name="currency" type="string">
+  Currency code
+</ResponseField>
+
+<ResponseField name="created_at" type="string">
+  Original creation timestamp
+</ResponseField>
+
+<ResponseField name="updated_at" type="string">
+  Last update timestamp
+</ResponseField>
+
+<ResponseField name="error_message" type="string">
+  Error message if status is error or rejected
+</ResponseField>
+
+<ResponseField name="child_agent" type="object">
+  Child agent details if payment was approved and processed
+</ResponseField>
+
+<ResponseField name="approved_by" type="string">
+  ID of user who approved/rejected the payment
+</ResponseField>
+
+## Example Requests
+
+<CodeGroup>
+```json Approve Payment
+{
+  "payment_id": "payment_eC6ZezevNsqxvoKmQrUuoU",
+  "action": "approve"
+}
+```
+
+```json Reject Payment
+{
+  "payment_id": "payment_k77NTwxp2Ym3JCmVsKtXQA",
+  "action": "reject",
+  "reason": "Insufficient documentation provided"
+}
+```
+</CodeGroup>
+
+## Example Responses
+
+<CodeGroup>
+```json Approved Payment
+{
+  "payments_id": "payment_eC6ZezevNsqxvoKmQrUuoU",
+  "status": "approved",
+  "action": "approve",
+  "user_prompt": "Send payment for freelance work",
+  "destination_type": "mage_user",
+  "destination_details": {
+    "user_id": "mage_d1126ef5ad154e418cc05809bc45079b"
+  },
+  "amount": 2500,
+  "currency": "USD",
+  "created_at": "2024-01-15T10:30:00Z",
+  "updated_at": "2024-01-15T10:35:00Z",
+  "error_message": null,
+  "child_agent": {
+    "id": "mage_child_k77NTwxp2Ym3JCmVsKtXQA",
+    "session_id": "session_abc123def456",
+    "parent_agent_id": "mage_agent_eC6ZezevNsqxvoKmQrUuoU",
+    "auth_on_behalf_of": "user123@example.com",
+    "obo_user_email": "employee@company.com",
+    "status": "closed",
+    "created_at": "2024-01-15T10:35:00Z",
+    "scoped_balance": 2500,
+    "rails_utilized": ["MAGE_IDS"]
+  },
+  "approved_by": "mage_admin_xyz789"
+}
+```
+
+```json Rejected Payment
+{
+  "payments_id": "payment_k77NTwxp2Ym3JCmVsKtXQA",
+  "status": "rejected",
+  "action": "reject",
+  "user_prompt": "Urgent payment needed",
+  "destination_type": "bank_address",
+  "destination_details": {
+    "type": "ACH",
+    "bank_name": "Chase Bank",
+    "recipient_name": "John Doe"
+  },
+  "amount": 5000,
+  "currency": "USD",
+  "created_at": "2024-01-15T09:00:00Z",
+  "updated_at": "2024-01-15T09:30:00Z",
+  "error_message": "Insufficient documentation provided",
+  "child_agent": null,
+  "approved_by": "mage_admin_xyz789"
+}
+```
+</CodeGroup>
+
+## Notes
+
+- Only payment intents with status `pending` or `requires_approval` can be approved/rejected
+- When approving a payment, the system will create a child agent and execute the transfer
+- When rejecting a payment, no child agent is created and no transfer occurs
+- All approval actions are logged for audit purposes

@@ -1,0 +1,87 @@
+---
+title: "List Trusted Parties"
+api: "GET https://api.magebank.ai/trusted-parties/{type}"
+description: "Retrieve all trusted parties of a specific type"
+---
+
+## Authentication
+
+This endpoint requires API key authentication via the `Authorization` header.
+
+```
+Authorization: Bearer YOUR_API_KEY
+```
+
+## Path Parameters
+
+<ParamField path="type" type="string" required>
+  Type of trusted parties to retrieve. Must be one of: `domains`, `bank-accounts`, `mage-ids`
+</ParamField>
+
+## Response
+
+The response contains an array with a key that matches the type:
+
+<ResponseField name="domains" type="array" condition="when type=domains">
+  Array of domain objects
+</ResponseField>
+
+<ResponseField name="bank_accounts" type="array" condition="when type=bank-accounts">
+  Array of bank account objects  
+</ResponseField>
+
+<ResponseField name="mage_ids" type="array" condition="when type=mage-ids">
+  Array of mage ID objects
+</ResponseField>
+
+## Example Responses
+
+<CodeGroup>
+```json Domains (GET /trusted-parties/domains)
+{
+  "domains": [
+    {
+      "id": "mage_trusted_domain_eC6ZezevNsqxvoKmQrUuoU",
+      "domain": "https://marketplace.etsy.com",
+      "last_used": null,
+      "status": "active",
+      "created_at": "2024-01-15T10:30:00Z",
+      "updated_at": "2024-01-15T10:30:00Z"
+    }
+  ]
+}
+```
+
+```json Bank Accounts (GET /trusted-parties/bank-accounts)
+{
+  "bank_accounts": [
+    {
+      "id": "mage_trusted_bank_acc_k77NTwxp2Ym3JCmVsKtXQA",
+      "bank_name": "Chase Bank",
+      "country": "US",
+      "routing_number": "021000021",
+      "account_number": "123456789",
+      "recipient_name": "John Doe",
+      "status": "active",
+      "created_at": "2024-01-15T10:30:00Z",
+      "updated_at": "2024-01-15T10:30:00Z"
+    }
+  ]
+}
+```
+
+```json Mage IDs (GET /trusted-parties/mage-ids)
+{
+  "mage_ids": [
+    {
+      "id": "mage_trusted_id_x9YZabc123def456",
+      "mageid": "mage_agent_x7BC9kDmL2QvFnRaZpY8N4",
+      "type": "agent",
+      "status": "active",
+      "created_at": "2024-01-15T10:30:00Z",
+      "updated_at": "2024-01-15T10:30:00Z"
+    }
+  ]
+}
+```
+</CodeGroup>

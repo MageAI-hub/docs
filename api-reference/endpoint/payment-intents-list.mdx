@@ -1,0 +1,163 @@
+---
+title: "List Payment Intents"
+api: "GET https://api.magebank.ai/payment/intents/user"
+description: "Retrieve payment intents for the authenticated user"
+---
+
+## Authentication
+
+This endpoint requires API key authentication via the `Authorization` header.
+
+```
+Authorization: Bearer YOUR_API_KEY
+```
+
+## Query Parameters
+
+<ParamField query="status" type="string">
+  Filter by payment status: `approved`, `rejected`, `requires_approval`, `error`, `pending`
+</ParamField>
+
+<ParamField query="startDate" type="string">
+  Filter by start date (ISO 8601 format)
+</ParamField>
+
+<ParamField query="endDate" type="string">
+  Filter by end date (ISO 8601 format)
+</ParamField>
+
+## Response
+
+Returns an array of payment intent objects with the following structure:
+
+<ResponseField name="id" type="string">
+  Payment intent ID in short format
+</ResponseField>
+
+<ResponseField name="createdat" type="string">
+  Creation timestamp
+</ResponseField>
+
+<ResponseField name="paymentdetails" type="object">
+  Payment amount and currency information
+  
+  <Expandable title="Payment Details Properties">
+    <ResponseField name="amount" type="number">
+      Payment amount
+    </ResponseField>
+    
+    <ResponseField name="currency" type="string">
+      Currency code
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+<ResponseField name="status" type="string">
+  Payment status
+</ResponseField>
+
+<ResponseField name="direction" type="string">
+  Payment direction: `incoming` or `outgoing`
+</ResponseField>
+
+<ResponseField name="approvalstatus" type="string">
+  Approval status (same as status)
+</ResponseField>
+
+<ResponseField name="receiveragentid" type="string">
+  Receiver identifier (varies by destination type)
+</ResponseField>
+
+<ResponseField name="contactdetails" type="object">
+  Contact details for bank transfers
+</ResponseField>
+
+<ResponseField name="initiatedBy" type="string">
+  Who initiated the payment
+</ResponseField>
+
+<ResponseField name="tx_type" type="string">
+  Transaction type description
+</ResponseField>
+
+<ResponseField name="obo" type="string">
+  On-behalf-of user email
+</ResponseField>
+
+<ResponseField name="memo" type="string">
+  Payment memo/description
+</ResponseField>
+
+<ResponseField name="error_message" type="string">
+  Error message if applicable
+</ResponseField>
+
+<ResponseField name="tx_hash" type="string">
+  Transaction hash if payment was executed
+</ResponseField>
+
+## Example Request
+
+```
+GET /payment/intents/user?status=approved&startDate=2024-01-01T00:00:00Z&endDate=2024-01-31T23:59:59Z
+```
+
+## Example Response
+
+```json
+[
+  {
+    "id": "payment_eC6ZezevNsqxvoKmQrUuoU",
+    "createdat": "2024-01-15T10:30:00Z",
+    "paymentdetails": {
+      "amount": 500,
+      "currency": "USD"
+    },
+    "status": "approved",
+    "direction": "outgoing",
+    "approvalstatus": "approved",
+    "receiveragentid": "mage_d1126ef5ad154e418cc05809bc45079b",
+    "contactdetails": undefined,
+    "initiatedBy": "Finance Operations Agent",
+    "tx_type": "User Transfer",
+    "obo": "employee@company.com",
+    "memo": "Monthly freelance development work",
+    "error_message": undefined,
+    "tx_hash": "0x1234567890abcdef"
+  },
+  {
+    "id": "payment_k77NTwxp2Ym3JCmVsKtXQA",
+    "createdat": "2024-01-14T15:45:00Z",
+    "paymentdetails": {
+      "amount": 1200,
+      "currency": "USD"
+    },
+    "status": "rejected",
+    "direction": "outgoing",
+    "approvalstatus": "rejected",
+    "receiveragentid": "Raj Patel",
+    "contactdetails": {
+      "email": "Raj Patel",
+      "phoneNumber": ""
+    },
+    "initiatedBy": "Finance Operations Agent",
+    "tx_type": "Bank Transfer (IMPS)",
+    "obo": "manager@company.com",
+    "memo": "Mobile app development work",
+    "error_message": "Daily limit exceeded. Current: 8000, Limit: 9000. Next payment available at 2024-01-15T03:45:00Z (in 12h 0m 0s)",
+    "tx_hash": null
+  }
+]
+```
+
+## Direction Logic
+
+- **incoming**: Payment where the authenticated user is the recipient
+- **outgoing**: Payment where the authenticated user is the sender or owns the parent agent
+
+## Transaction Types
+
+- **User Transfer**: Mage user to Mage user transfer
+- **Agent Transfer**: Transfer to a parent agent
+- **Bank Transfer (ACH/SEPA/IMPS)**: Bank account transfer with specific type
+- **Checkout Payment**: Checkout link payment

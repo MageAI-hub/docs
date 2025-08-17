@@ -1,0 +1,82 @@
+---
+title: "Get Policy"
+api: "GET https://api.magebank.ai/policy/{id}"
+description: "Retrieve a specific policy by ID"
+---
+
+## Authentication
+
+This endpoint requires API key authentication via the `Authorization` header.
+
+```
+Authorization: Bearer YOUR_API_KEY
+```
+
+## Path Parameters
+
+<ParamField path="id" type="string" required>
+  Policy ID (supports both short IDs like `mage_policy_xxx` and UUIDs)
+</ParamField>
+
+## Response
+
+<ResponseField name="id" type="string">
+  Policy ID in short format
+</ResponseField>
+
+<ResponseField name="type" type="string">
+  Policy type (custom, enterprise, developer, default)
+</ResponseField>
+
+<ResponseField name="instructions" type="object">
+  AI-generated policy instructions
+</ResponseField>
+
+<ResponseField name="core_policies" type="object">
+  Core policy settings with context
+</ResponseField>
+
+<ResponseField name="custom_categories" type="array">
+  Custom categories with blocking rules
+</ResponseField>
+
+<ResponseField name="enforcement_guidance" type="string">
+  Guidance for policy enforcement
+</ResponseField>
+
+<ResponseField name="created_at" type="string">
+  Creation timestamp
+</ResponseField>
+
+<ResponseField name="updated_at" type="string">
+  Last update timestamp
+</ResponseField>
+
+## Example Response
+
+```json
+{
+  "id": "mage_policy_k77NTwxp2Ym3JCmVsKtXQA",
+  "type": "custom",
+  "instructions": {
+    "name": "Finance Ops Risk Mitigation",
+    "description": "Policy for catching fraud attempts"
+  },
+  "core_policies": {
+    "intent_validation": {
+      "level": 9,
+      "context": "High-level validation for suspicious intents"
+    }
+  },
+  "custom_categories": [
+    {
+      "name": "Coercive Language Patterns",
+      "action": "Block",
+      "expressions": ["this is urgent", "CEO asked me to"]
+    }
+  ],
+  "enforcement_guidance": "Apply enhanced scrutiny to all transactions",
+  "created_at": "2024-01-15T10:30:00Z",
+  "updated_at": "2024-01-15T10:30:00Z"
+}
+```

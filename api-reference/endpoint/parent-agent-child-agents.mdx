@@ -1,0 +1,103 @@
+---
+title: "Get Child Agents"
+api: "GET https://api.magebank.ai/p-agent/parent/{id}/child-agents"
+description: "Retrieve all child agents for a specific parent agent"
+---
+
+## Authentication
+
+This endpoint requires API key authentication via the `Authorization` header.
+
+```
+Authorization: Bearer YOUR_API_KEY
+```
+
+## Path Parameters
+
+<ParamField path="id" type="string" required>
+  Parent agent ID (supports both short IDs like `mage_agent_xxx` and UUIDs)
+</ParamField>
+
+## Response
+
+<ResponseField name="child_agents" type="array">
+  Array of child agent objects
+  
+  <Expandable title="Child Agent Object Properties">
+    <ResponseField name="id" type="string">
+      Child agent ID in short format (e.g., `mage_child_xxx`)
+    </ResponseField>
+    
+    <ResponseField name="session_id" type="string">
+      Session ID in short format (e.g., `session_xxx`)
+    </ResponseField>
+    
+    <ResponseField name="parent_agent_id" type="string">
+      Parent agent ID in short format
+    </ResponseField>
+    
+    <ResponseField name="auth_on_behalf_of" type="string">
+      User ID the child agent is acting on behalf of
+    </ResponseField>
+    
+    <ResponseField name="obo_user_email" type="string">
+      Email of the user being acted on behalf of
+    </ResponseField>
+    
+    <ResponseField name="status" type="string">
+      Child agent status (active, closed, error)
+    </ResponseField>
+    
+    <ResponseField name="scoped_balance" type="number">
+      Scoped balance for this child agent
+    </ResponseField>
+    
+    <ResponseField name="rails_utilized" type="array">
+      Payment rails utilized by this child agent
+    </ResponseField>
+    
+    <ResponseField name="created_at" type="string">
+      Creation timestamp
+    </ResponseField>
+    
+    <ResponseField name="updated_at" type="string">
+      Last update timestamp
+    </ResponseField>
+    
+    <ResponseField name="error_message" type="string">
+      Error message if status is error
+    </ResponseField>
+    
+    <ResponseField name="created_by" type="string">
+      ID of user who created the child agent
+    </ResponseField>
+    
+    <ResponseField name="tx_hash" type="string">
+      Transaction hash if payment was executed
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+## Example Response
+
+```json
+{
+  "child_agents": [
+    {
+      "id": "mage_child_k77NTwxp2Ym3JCmVsKtXQA",
+      "session_id": "session_abc123def456",
+      "parent_agent_id": "mage_agent_eC6ZezevNsqxvoKmQrUuoU",
+      "auth_on_behalf_of": "user123@example.com",
+      "obo_user_email": "employee@company.com",
+      "status": "closed",
+      "scoped_balance": 500.00,
+      "rails_utilized": ["MAGE_IDS"],
+      "created_at": "2024-01-15T11:00:00Z",
+      "updated_at": "2024-01-15T11:05:00Z",
+      "error_message": null,
+      "created_by": "mage_user_xyz789",
+      "tx_hash": "0x1234567890abcdef"
+    }
+  ]
+}
+```

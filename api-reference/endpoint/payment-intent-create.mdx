@@ -1,0 +1,227 @@
+---
+title: "Create Payment Intent"
+api: "POST https://api.magebank.ai/payment/intent"
+description: "Create a payment intent with automatic guardrails validation"
+---
+
+## Authentication
+
+This endpoint requires API key authentication via the `Authorization` header.
+
+```
+Authorization: Bearer YOUR_API_KEY
+```
+
+## Required Headers
+
+<ParamField header="X-Parent" type="string" required>
+  Parent agent ID (supports both short IDs like `mage_agent_xxx` and UUIDs)
+</ParamField>
+
+<ParamField header="X-On-Behalf-Of" type="string" required>
+  User ID that the agent is acting on behalf of
+</ParamField>
+
+<ParamField header="X-OBO-User-Email" type="string" required>
+  Email of the user being acted on behalf of
+</ParamField>
+
+## Request Body
+
+<ParamField body="user_prompt" type="string" required>
+  User's description of the payment intent
+</ParamField>
+
+<ParamField body="destination_type" type="string" required>
+  Type of destination. Options: `bank_address`, `checkout_link`, `parent_agent`, `mage_user`
+</ParamField>
+
+<ParamField body="destination_details" type="object" required>
+  Destination details (varies by destination_type)
+</ParamField>
+
+<ParamField body="amount" type="number" required>
+  Payment amount (must be positive)
+</ParamField>
+
+<ParamField body="currency" type="string" required>
+  Currency code (only `USD` is currently supported)
+</ParamField>
+
+<ParamField body="memo" type="object">
+  Optional JSON metadata for the payment
+</ParamField>
+
+## Destination Details by Type
+
+<AccordionGroup>
+  <Accordion title="Mage User (destination_type=mage_user)">
+    <ParamField body="user_id" type="string" required>
+      Target user's Mage ID
+    </ParamField>
+  </Accordion>
+
+  <Accordion title="Parent Agent (destination_type=parent_agent)">
+    <ParamField body="agent_id" type="string" required>
+      Target parent agent's ID
+    </ParamField>
+  </Accordion>
+
+  <Accordion title="Bank Address (destination_type=bank_address)">
+    <ParamField body="type" type="string" required>
+      Bank transfer type: `ACH`, `SEPA`, or `IMPS`
+    </ParamField>
+    
+    <ParamField body="bank_name" type="string" required>
+      Name of the bank
+    </ParamField>
+    
+    <ParamField body="recipient_name" type="string" required>
+      Name of the recipient
+    </ParamField>
+    
+    **For ACH (US):**
+    <ParamField body="routing_number" type="string" required>
+      US bank routing number
+    </ParamField>
+    <ParamField body="account_number" type="string" required>
+      US bank account number
+    </ParamField>
+    
+    **For SEPA (EU):**
+    <ParamField body="iban" type="string" required>
+      IBAN number
+    </ParamField>
+    <ParamField body="bic_swift_code" type="string" required>
+      BIC/SWIFT code
+    </ParamField>
+    
+    **For IMPS (India):**
+    <ParamField body="ifsc_code" type="string" required>
+      IFSC code
+    </ParamField>
+    <ParamField body="account_number" type="string" required>
+      Indian bank account number
+    </ParamField>
+  </Accordion>
+
+  <Accordion title="Checkout Link (destination_type=checkout_link)">
+    <ParamField body="url" type="string" required>
+      Checkout URL
+    </ParamField>
+    
+    <ParamField body="merchant_name" type="string" required>
+      Name of the merchant
+    </ParamField>
+  </Accordion>
+</AccordionGroup>
+
+## Response
+
+<ResponseField name="payments_id" type="string">
+  Payment intent ID in short format (e.g., `payment_xxx`)
+</ResponseField>
+
+<ResponseField name="status" type="string">
+  Payment status: `approved`, `rejected`, `requires_approval`, `error`
+</ResponseField>
+
+<ResponseField name="user_prompt" type="string">
+  Original user prompt
+</ResponseField>
+
+<ResponseField name="destination_type" type="string">
+  Destination type
+</ResponseField>
+
+<ResponseField name="destination_details" type="object">
+  Destination details with short IDs
+</ResponseField>
+
+<ResponseField name="amount" type="number">
+  Payment amount
+</ResponseField>
+
+<ResponseField name="currency" type="string">
+  Currency code
+</ResponseField>
+
+<ResponseField name="created_at" type="string">
+  Creation timestamp
+</ResponseField>
+
+<ResponseField name="error_message" type="string">
+  Error message if status is error or rejected
+</ResponseField>
+
+<ResponseField name="child_agent" type="object">
+  Child agent details if payment was processed
+</ResponseField>
+
+## Example Request
+
+```json
+{
+  "user_prompt": "Send payment for freelance work",
+  "destination_type": "mage_user",
+  "destination_details": {
+    "user_id": "d1126ef5-ad15-4e41-8cc0-5809bc45079b"
+  },
+  "amount": 500,
+  "currency": "USD",
+  "memo": {
+    "purpose": "freelance_payment",
+    "category": "services",
+    "description": "Monthly freelance development work"
+  }
+}
+```
+
+## Example Response
+
+```json
+{
+  "payments_id": "payment_eC6ZezevNsqxvoKmQrUuoU",
+  "status": "approved",
+  "user_prompt": "Send payment for freelance work",
+  "destination_type": "mage_user",
+  "destination_details": {
+    "user_id": "mage_d1126ef5ad154e418cc05809bc45079b"
+  },
+  "amount": 500,
+  "currency": "USD",
+  "created_at": "2024-01-15T10:30:00Z",
+  "error_message": null,
+  "child_agent": {
+    "id": "mage_child_k77NTwxp2Ym3JCmVsKtXQA",
+    "session_id": "session_abc123def456",
+    "parent_agent_id": "mage_agent_eC6ZezevNsqxvoKmQrUuoU",
+    "auth_on_behalf_of": "user123@example.com",
+    "obo_user_email": "employee@company.com",
+    "status": "closed",
+    "created_at": "2024-01-15T10:30:00Z",
+    "scoped_balance": 500,
+    "rails_utilized": ["MAGE_IDS"]
+  }
+}
+```
+
+## Status Meanings
+
+<AccordionGroup>
+  <Accordion title="approved">
+    Payment was automatically approved and executed successfully.
+  </Accordion>
+  
+  <Accordion title="requires_approval">
+    Payment requires manual approval due to spend rules or amount thresholds.
+  </Accordion>
+  
+  <Accordion title="rejected">
+    Payment was rejected due to guardrails validation (limits, trusted payees, etc.).
+  </Accordion>
+  
+  <Accordion title="error">
+    Payment failed due to technical error during processing.
+  </Accordion>
+</AccordionGroup>

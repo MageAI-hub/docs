@@ -1,0 +1,133 @@
+---
+title: "Create Parent Agent"
+api: "POST https://api.magebank.ai/p-agent/parent"
+description: "Create a new parent agent with spend rules and configuration"
+---
+
+## Authentication
+
+This endpoint requires API key authentication via the `Authorization` header.
+
+```
+Authorization: Bearer YOUR_API_KEY
+```
+
+## Request Body
+
+<ParamField body="name" type="string" required>
+  Agent name
+</ParamField>
+
+<ParamField body="description" type="string">
+  Optional agent description
+</ParamField>
+
+<ParamField body="tags" type="array">
+  Optional array of tags for categorization
+</ParamField>
+
+<ParamField body="spend_rules" type="object" required>
+  Spend rules configuration for the agent
+  
+  <Expandable title="Spend Rules Properties">
+    <ParamField body="per_tx_limit" type="number" required>
+      Maximum amount per transaction (minimum: 0)
+    </ParamField>
+    
+    <ParamField body="daily_limit" type="number" required>
+      Maximum amount per 24-hour period (minimum: 0)
+    </ParamField>
+    
+    <ParamField body="max_allowance" type="number" required>
+      Maximum total allowance (minimum: 0)
+    </ParamField>
+    
+    <ParamField body="session_time_mins" type="number" required>
+      Session timeout in minutes (minimum: 0)
+    </ParamField>
+    
+    <ParamField body="trusted_payees" type="boolean" required>
+      Whether to require trusted payees for transfers
+    </ParamField>
+    
+    <ParamField body="human_approval_required" type="boolean" required>
+      Whether all transactions require human approval
+    </ParamField>
+    
+    <ParamField body="auto_approve_threshold" type="number" required>
+      Auto-approval threshold amount (minimum: 0)
+    </ParamField>
+    
+    <ParamField body="allowed_rails" type="array" required>
+      Array of allowed payment rails. Options: `BANK_ACCOUNT`, `BANK_ACCOUNT:ACH`, `BANK_ACCOUNT:SEPA`, `BANK_ACCOUNT:IMPS`, `MAGE_IDS`, `CHECKOUT`, `ALL`
+    </ParamField>
+  </Expandable>
+</ParamField>
+
+## Response
+
+<ResponseField name="id" type="string">
+  Parent agent ID in short format (e.g., `mage_agent_xxx`)
+</ResponseField>
+
+<ResponseField name="name" type="string">
+  Agent name
+</ResponseField>
+
+<ResponseField name="description" type="string">
+  Agent description
+</ResponseField>
+
+<ResponseField name="tags" type="array">
+  Agent tags
+</ResponseField>
+
+<ResponseField name="spend_rules" type="object">
+  Configured spend rules
+</ResponseField>
+
+<ResponseField name="created_at" type="string">
+  Creation timestamp
+</ResponseField>
+
+## Example Request
+
+```json
+{
+  "name": "Finance Operations Agent",
+  "description": "Agent for processing financial operations",
+  "tags": ["finance", "operations"],
+  "spend_rules": {
+    "per_tx_limit": 5000,
+    "daily_limit": 25000,
+    "max_allowance": 100000,
+    "session_time_mins": 30,
+    "trusted_payees": true,
+    "human_approval_required": false,
+    "auto_approve_threshold": 1000,
+    "allowed_rails": ["BANK_ACCOUNT:ACH", "MAGE_IDS"]
+  }
+}
+```
+
+## Example Response
+
+```json
+{
+  "id": "mage_agent_eC6ZezevNsqxvoKmQrUuoU",
+  "name": "Finance Operations Agent",
+  "description": "Agent for processing financial operations",
+  "tags": ["finance", "operations"],
+  "spend_rules": {
+    "per_tx_limit": 5000,
+    "daily_limit": 25000,
+    "max_allowance": 100000,
+    "session_time_mins": 30,
+    "trusted_payees": true,
+    "human_approval_required": false,
+    "auto_approve_threshold": 1000,
+    "allowed_rails": ["BANK_ACCOUNT:ACH", "MAGE_IDS"]
+  },
+  "created_at": "2024-01-15T10:30:00Z"
+}
+```

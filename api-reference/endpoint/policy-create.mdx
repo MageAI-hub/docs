@@ -1,0 +1,124 @@
+---
+title: "Create Policy"
+api: "POST https://api.magebank.ai/policy/custom"
+description: "Create a custom policy with AI-generated instructions for agent guardrails"
+---
+
+## Authentication
+
+This endpoint requires API key authentication via the `Authorization` header.
+
+```
+Authorization: Bearer YOUR_API_KEY
+```
+
+## Request Body
+
+<ParamField body="name" type="string" required>
+  Policy name
+</ParamField>
+
+<ParamField body="description" type="string" required>
+  Policy description
+</ParamField>
+
+<ParamField body="parent_agent_id" type="string" required>
+  Parent agent ID (supports both short IDs like `mage_agent_xxx` and UUIDs)
+</ParamField>
+
+<ParamField body="core_settings" type="object" required>
+  Core policy settings with validation levels
+  
+  <Expandable title="Core Settings Properties">
+    <ParamField body="intent_validation" type="number" required>
+      Intent validation level (0-10, higher = more strict)
+    </ParamField>
+    
+    <ParamField body="language_processing" type="number" required>
+      Language processing level (0-10, higher = more strict)
+    </ParamField>
+    
+    <ParamField body="transaction_monitoring" type="number" required>
+      Transaction monitoring level (0-10, higher = more strict)
+    </ParamField>
+  </Expandable>
+</ParamField>
+
+<ParamField body="custom_categories" type="array" required>
+  Array of custom categories to block
+  
+  <Expandable title="Custom Category Properties">
+    <ParamField body="name" type="string" required>
+      Category name
+    </ParamField>
+    
+    <ParamField body="description" type="string" required>
+      Category description
+    </ParamField>
+    
+    <ParamField body="expressions" type="array" required>
+      Array of expressions/phrases to block
+    </ParamField>
+  </Expandable>
+</ParamField>
+
+## Response
+
+<ResponseField name="id" type="string">
+  Policy ID in short format (e.g., `mage_policy_xxx`)
+</ResponseField>
+
+<ResponseField name="message" type="string">
+  Success message
+</ResponseField>
+
+<ResponseField name="instructions" type="object">
+  AI-generated policy instructions with enriched context
+</ResponseField>
+
+## Example Request
+
+```json
+{
+  "name": "Finance Ops Risk Mitigation",
+  "description": "Policy for catching fraud attempts in finance operations",
+  "parent_agent_id": "mage_agent_eC6ZezevNsqxvoKmQrUuoU",
+  "core_settings": {
+    "intent_validation": 9,
+    "language_processing": 8,
+    "transaction_monitoring": 9
+  },
+  "custom_categories": [
+    {
+      "name": "Coercive Language Patterns",
+      "description": "Block manipulative phrases used in phishing",
+      "expressions": [
+        "this is urgent",
+        "CEO asked me to",
+        "process this right away"
+      ]
+    }
+  ]
+}
+```
+
+## Example Response
+
+```json
+{
+  "id": "mage_policy_k77NTwxp2Ym3JCmVsKtXQA",
+  "message": "Custom policy created successfully.",
+  "instructions": {
+    "name": "Finance Ops Risk Mitigation",
+    "description": "Policy for catching fraud attempts in finance operations",
+    "core_policy": {
+      "intent_validation": {
+        "level": 9,
+        "context": "High-level validation ensures suspicious intents are caught"
+      }
+    },
+    "custom_categories": [...],
+    "enforcement_guidance": "Apply enhanced scrutiny to all transactions"
+  }
+}
+```

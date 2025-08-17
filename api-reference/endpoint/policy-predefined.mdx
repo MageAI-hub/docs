@@ -1,0 +1,72 @@
+---
+title: "Create Predefined Policy"
+api: "POST https://api.magebank.ai/policy/predefined"
+description: "Create a predefined policy (enterprise, developer, or default) for a parent agent"
+---
+
+## Authentication
+
+This endpoint requires API key authentication via the `Authorization` header.
+
+```
+Authorization: Bearer YOUR_API_KEY
+```
+
+## Request Body
+
+<ParamField body="policy_type" type="string" required>
+  Type of predefined policy to create. Must be one of: `enterprise`, `developer`, `default`
+</ParamField>
+
+<ParamField body="parent_agent_id" type="string" required>
+  Parent agent ID (supports both short IDs like `mage_agent_xxx` and UUIDs)
+</ParamField>
+
+## Response
+
+<ResponseField name="id" type="string">
+  Policy ID in short format (e.g., `mage_policy_xxx`)
+</ResponseField>
+
+<ResponseField name="message" type="string">
+  Success message
+</ResponseField>
+
+<ResponseField name="type" type="string">
+  The type of predefined policy created
+</ResponseField>
+
+## Example Request
+
+```json
+{
+  "policy_type": "enterprise",
+  "parent_agent_id": "mage_agent_eC6ZezevNsqxvoKmQrUuoU"
+}
+```
+
+## Example Response
+
+```json
+{
+  "id": "mage_policy_k77NTwxp2Ym3JCmVsKtXQA",
+  "message": "Predefined policy created successfully",
+  "type": "enterprise"
+}
+```
+
+## Policy Types
+
+<AccordionGroup>
+  <Accordion title="Enterprise">
+    High-security policy with strict validation rules suitable for enterprise environments with multiple compliance requirements.
+  </Accordion>
+  
+  <Accordion title="Developer">
+    Balanced policy for development environments with moderate security controls while allowing flexibility for testing.
+  </Accordion>
+  
+  <Accordion title="Default">
+    Basic policy with standard security measures suitable for general use cases.
+  </Accordion>
+</AccordionGroup>

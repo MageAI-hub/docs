@@ -13,6 +13,9 @@
       "dark": "#000000"
     }
   },
+  "styling": {
+    "codeblocks": "system"
+  },
   "favicon": "/favicon.ico",
   "navigation": {
     "tabs": [
@@ -110,15 +113,6 @@
               "api-reference/endpoint/payment-intent-create",
               "api-reference/endpoint/payment-intent-approval",
               "api-reference/endpoint/payment-intents-list"
-            ]
-          },
-          {
-            "group": "Example Endpoints",
-            "pages": [
-              "api-reference/endpoint/get",
-              "api-reference/endpoint/create",
-              "api-reference/endpoint/delete",
-              "api-reference/endpoint/webhook"
             ]
           }
         ]

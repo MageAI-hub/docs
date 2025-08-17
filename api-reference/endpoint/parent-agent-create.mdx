@@ -4,13 +4,19 @@ api: "POST https://api.magebank.ai/p-agent/parent"
 description: "Create a new parent agent with spend rules and configuration"
 ---
 
-## Authentication
+<Note>
+**Financial Control**: Parent agents define spend rules and guardrails that control how child agents can process payments, providing centralized financial governance.
+</Note>
 
-This endpoint requires API key authentication via the `Authorization` header.
+<Info>
+**Complete Control**: Configure transaction limits, approval requirements, and allowed payment rails to precisely control how your agents handle funds.
+</Info>
 
-```
-Authorization: Bearer YOUR_API_KEY
-```
+## Request Headers
+
+<ParamField header="x-api-key" type="string" required>
+  Your API key for authentication
+</ParamField>
 
 ## Request Body
 

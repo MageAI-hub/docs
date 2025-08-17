@@ -4,13 +4,11 @@ api: "GET https://api.magebank.ai/payment/intents/user"
 description: "Retrieve payment intents for the authenticated user"
 ---
 
-## Authentication
+## Request Headers
 
-This endpoint requires API key authentication via the `Authorization` header.
-
-```
-Authorization: Bearer YOUR_API_KEY
-```
+<ParamField header="x-api-key" type="string" required>
+  Your API key for authentication
+</ParamField>
 
 ## Query Parameters
 

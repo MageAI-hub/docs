@@ -4,13 +4,19 @@ api: "POST https://api.magebank.ai/payment/intent"
 description: "Create a payment intent with automatic guardrails validation"
 ---
 
-## Authentication
+<Note>
+**Multi-Layer Validation**: This endpoint processes payments through sophisticated guardrails including spend limits, trusted payees validation, and AI-powered policy enforcement.
+</Note>
 
-This endpoint requires API key authentication via the `Authorization` header.
+<Warning>
+In sandbox mode only Mage-to-Mage transfers are currently supported. Bank transfers, checkout payments, and external transfers are coming soon.
+</Warning>
 
-```
-Authorization: Bearer YOUR_API_KEY
-```
+## Request Headers
+
+<ParamField header="x-api-key" type="string" required>
+  Your API key for authentication
+</ParamField>
 
 ## Required Headers
 
@@ -225,3 +231,17 @@ Authorization: Bearer YOUR_API_KEY
     Payment failed due to technical error during processing.
   </Accordion>
 </AccordionGroup>
+
+## Status Codes
+
+| Status Code | Description |
+|-------------|-------------|
+| 201 | Payment intent created successfully |
+| 400 | Bad Request - Invalid parameters or validation failure |
+| 403 | Forbidden - Access denied to parent agent |
+| 404 | Not Found - Parent agent not found |
+| 500 | Internal Server Error |
+
+<Warning>
+**Important**: Payment intents with `requires_approval` status must be manually approved using the approval endpoint before funds are transferred.
+</Warning>

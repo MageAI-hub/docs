@@ -4,13 +4,15 @@ api: "POST https://api.magebank.ai/policy/custom"
 description: "Create a custom policy with AI-generated instructions for agent guardrails"
 ---
 
-## Authentication
+<Note>
+**AI-Powered Generation**: This endpoint uses OpenAI to generate comprehensive policy instructions with context and enforcement guidance based on your specifications.
+</Note>
 
-This endpoint requires API key authentication via the `Authorization` header.
+## Request Headers
 
-```
-Authorization: Bearer YOUR_API_KEY
-```
+<ParamField header="x-api-key" type="string" required>
+  Your API key for authentication
+</ParamField>
 
 ## Request Body
 

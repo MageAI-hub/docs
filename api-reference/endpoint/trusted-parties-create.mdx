@@ -4,13 +4,19 @@ api: "POST https://api.magebank.ai/trusted-parties/{type}"
 description: "Create a trusted party (domains, bank accounts, or mage IDs)"
 ---
 
-## Authentication
+<Note>
+**Security Layer**: Trusted parties act as allowlists for payments, ensuring agents can only send funds to pre-approved recipients when trusted payees validation is enabled.
+</Note>
 
-This endpoint requires API key authentication via the `Authorization` header.
+<Check>
+**Multiple Formats**: Supports various trusted party types including domains, bank accounts (US/EU/India), and Mage user/agent IDs for comprehensive payment control.
+</Check>
 
-```
-Authorization: Bearer YOUR_API_KEY
-```
+## Request Headers
+
+<ParamField header="x-api-key" type="string" required>
+  Your API key for authentication
+</ParamField>
 
 ## Path Parameters
 

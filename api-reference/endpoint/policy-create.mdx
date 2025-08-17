@@ -44,6 +44,18 @@ description: "Create a custom policy with AI-generated instructions for agent gu
       Transaction monitoring level (0-10, higher = more strict)
     </ParamField>
   </Expandable>
+  
+  <CardGroup cols={3}>
+    <Card title="Intent Validation" icon="shield-check" color="#FF7A00">
+      Validates payment intent and purpose
+    </Card>
+    <Card title="Language Processing" icon="brain" color="#FF7A00">
+      Detects manipulative language patterns
+    </Card>
+    <Card title="Transaction Monitoring" icon="magnifying-glass" color="#FF7A00">
+      Monitors transaction behavior
+    </Card>
+  </CardGroup>
 </ParamField>
 
 <ParamField body="custom_categories" type="array" required>
@@ -104,6 +116,10 @@ description: "Create a custom policy with AI-generated instructions for agent gu
 }
 ```
 
+<Tip>
+**Pro Tip**: Start with moderate validation levels (5-7) and adjust based on your security requirements. Higher levels provide more protection but may require more manual approvals.
+</Tip>
+
 ## Example Response
 
 ```json
@@ -124,3 +140,15 @@ description: "Create a custom policy with AI-generated instructions for agent gu
   }
 }
 ```
+
+<Steps>
+  <Step title="Policy Created">
+    Your custom policy is created with a unique ID
+  </Step>
+  <Step title="AI Instructions Generated">
+    OpenAI generates comprehensive enforcement guidelines
+  </Step>
+  <Step title="Ready for Deployment">
+    Policy can now be applied to parent agents
+  </Step>
+</Steps>

@@ -60,6 +60,15 @@ In sandbox mode only Mage-to-Mage transfers are currently supported. Bank transf
 
 ## Destination Details by Type
 
+<CardGroup cols={2}>
+  <Card title="Mage Network" icon="network-wired" color="#FF7A00">
+    Send to Mage users or parent agents
+  </Card>
+  <Card title="External Payments" icon="arrow-up-right-from-square" color="#FF7A00">
+    Bank transfers and checkout payments
+  </Card>
+</CardGroup>
+
 <AccordionGroup>
   <Accordion title="Mage User (destination_type=mage_user)">
     <ParamField body="user_id" type="string" required>
@@ -211,6 +220,18 @@ In sandbox mode only Mage-to-Mage transfers are currently supported. Bank transf
   }
 }
 ```
+
+<Steps>
+  <Step title="Validation">
+    Payment goes through guardrails validation
+  </Step>
+  <Step title="Processing">
+    Approved payments create child agents
+  </Step>
+  <Step title="Execution">
+    Funds transfer on blockchain with transaction hash
+  </Step>
+</Steps>
 
 ## Status Meanings
 

@@ -12,6 +12,15 @@ description: "Approve or reject a payment intent that requires manual approval"
 
 ## Request Body
 
+<CardGroup cols={2}>
+  <Card title="Approve" icon="check-circle" color="#22C55E">
+    Execute the payment after validation
+  </Card>
+  <Card title="Reject" icon="x-circle" color="#EF4444">
+    Decline the payment with reason
+  </Card>
+</CardGroup>
+
 <ParamField body="payment_id" type="string" required>
   Payment intent ID (supports both short IDs like `payment_xxx` and UUIDs)
 </ParamField>

@@ -29,6 +29,10 @@ x-api-key: YOUR_API_KEY
 
 The Mage API is organized into the following categories:
 
+<Frame>
+  <img src="/images/api-overview.png" alt="Mage API Overview" />
+</Frame>
+
 <CardGroup cols={2}>
   <Card title="Policy Management" icon="shield" href="/api-reference/endpoint/policy-create">
     Create and manage AI-powered policies for agent guardrails
@@ -56,6 +60,10 @@ All API responses are returned in JSON format. Successful responses typically in
 ```
 
 ## Error Handling
+
+<Tip>
+**Robust Error Handling**: The Mage API provides detailed error messages to help you quickly identify and resolve issues.
+</Tip>
 
 When an error occurs, the API returns an appropriate HTTP status code and a JSON object explaining the error:
 
@@ -90,6 +98,13 @@ GET https://api.magebank.ai/policy?page=2&limit=50
 ```
 
 ## Rate Limiting
+
+<Frame>
+  <div style="background: #FFF5F2; padding: 20px; border-radius: 8px; border-left: 4px solid #FF7A00;">
+    <h4 style="color: #FF7A00; margin: 0 0 10px 0;">⚡ Fair Usage Policy</h4>
+    <p style="margin: 0;">Rate limits ensure optimal performance for all users</p>
+  </div>
+</Frame>
 
 To ensure service stability, API requests are rate-limited to:
 

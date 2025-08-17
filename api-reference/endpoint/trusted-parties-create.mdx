@@ -28,6 +28,18 @@ description: "Create a trusted party (domains, bank accounts, or mage IDs)"
 
 The request body varies based on the type parameter:
 
+<CardGroup cols={3}>
+  <Card title="Domains" icon="globe" color="#FF7A00">
+    Trusted website URLs and checkout pages
+  </Card>
+  <Card title="Bank Accounts" icon="building-columns" color="#FF7A00">
+    Verified bank accounts (US/EU/India)
+  </Card>
+  <Card title="Mage IDs" icon="users" color="#FF7A00">
+    Trusted Mage users and agents
+  </Card>
+</CardGroup>
+
 <AccordionGroup>
   <Accordion title="Domains (type=domains)">
     <ParamField body="domain" type="string" required>

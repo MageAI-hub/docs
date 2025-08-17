@@ -68,6 +68,15 @@ description: "Create a new parent agent with spend rules and configuration"
       Array of allowed payment rails. Options: `BANK_ACCOUNT`, `BANK_ACCOUNT:ACH`, `BANK_ACCOUNT:SEPA`, `BANK_ACCOUNT:IMPS`, `MAGE_IDS`, `CHECKOUT`, `ALL`
     </ParamField>
   </Expandable>
+  
+  <CardGroup cols={2}>
+    <Card title="Financial Controls" icon="calculator" color="#FF7A00">
+      Set limits, thresholds, and allowances
+    </Card>
+    <Card title="Approval Workflows" icon="user-check" color="#FF7A00">
+      Configure human approval requirements
+    </Card>
+  </CardGroup>
 </ParamField>
 
 ## Response
@@ -137,3 +146,19 @@ description: "Create a new parent agent with spend rules and configuration"
   "created_at": "2024-01-15T10:30:00Z"
 }
 ```
+
+<Warning>
+**Security Reminder**: Store the returned agent ID securely as it will be needed for creating child agents and processing payments.
+</Warning>
+
+<AccordionGroup>
+  <Accordion title="Payment Rails Explained" icon="info">
+    - **BANK_ACCOUNT**: All bank transfers
+    - **BANK_ACCOUNT:ACH**: US bank transfers only
+    - **BANK_ACCOUNT:SEPA**: European bank transfers only
+    - **BANK_ACCOUNT:IMPS**: Indian bank transfers only
+    - **MAGE_IDS**: Transfers to other Mage users/agents
+    - **CHECKOUT**: Checkout link payments
+    - **ALL**: Allow all payment types
+  </Accordion>
+</AccordionGroup>

@@ -7,6 +7,12 @@
     "light": "#FF7A00",
     "dark": "#FF7A00"
   },
+  "background": {
+    "color": {
+      "light": "#FFFFFF",
+      "dark": "#000000"
+    }
+  },
   "favicon": "/favicon.ico",
   "navigation": {
     "tabs": [
